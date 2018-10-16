@@ -1643,32 +1643,16 @@ Epoch.Chart.Plot = (function(superClass) {
 
   Plot.prototype._redrawAxes = function() {
     if (this.hasAxis('bottom')) {
-      this.g.selectAll('.x.axisBottom').transition().duration(500).ease((function(_this) {
-        return function() {
-          return 'linear';
-        };
-      })(this)).call(this.bottomAxis());
+      this.g.selectAll('.x.axisBottom').transition().duration(500).ease(d3.easeLinear).call(this.bottomAxis());
     }
     if (this.hasAxis('top')) {
-      this.g.selectAll('.x.axisTop').transition().duration(500).ease((function(_this) {
-        return function() {
-          return 'linear';
-        };
-      })(this)).call(this.topAxis());
+      this.g.selectAll('.x.axisTop').transition().duration(500).ease(d3.easeLinear).call(this.topAxis());
     }
     if (this.hasAxis('left')) {
-      this.g.selectAll('.y.axisLeft').transition().duration(500).ease((function(_this) {
-        return function() {
-          return 'linear';
-        };
-      })(this)).call(this.leftAxis());
+      this.g.selectAll('.y.axisLeft').transition().duration(500).ease(d3.easeLinear).call(this.leftAxis());
     }
     if (this.hasAxis('right')) {
-      return this.g.selectAll('.y.axisRight').transition().duration(500).ease((function(_this) {
-        return function() {
-          return 'linear';
-        };
-      })(this)).call(this.rightAxis());
+      return this.g.selectAll('.y.axisRight').transition().duration(500).ease(d3.easeLinear).call(this.rightAxis());
     }
   };
 
@@ -2777,18 +2761,10 @@ Epoch.Time.Plot = (function(superClass) {
 
   Plot.prototype._transitionRangeAxes = function() {
     if (this.hasAxis('left')) {
-      this.svg.selectAll('.y.axisLeft').transition().duration(500).ease((function(_this) {
-        return function() {
-          return 'linear';
-        };
-      })(this)).call(this.leftAxis());
+      this.svg.selectAll('.y.axisLeft').transition().duration(500).ease(d3.easeLinear).call(this.leftAxis());
     }
     if (this.hasAxis('right')) {
-      return this.svg.selectAll('.y.axisRight').transition().duration(500).ease((function(_this) {
-        return function() {
-          return 'linear';
-        };
-      })(this)).call(this.rightAxis());
+      return this.svg.selectAll('.y.axisRight').transition().duration(500).ease(d3.easeLinear).call(this.rightAxis());
     }
   };
 

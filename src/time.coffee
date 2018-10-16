@@ -362,13 +362,13 @@ class Epoch.Time.Plot extends Epoch.Chart.Canvas
     if @hasAxis('left')
       @svg.selectAll('.y.axisLeft').transition()
         .duration(500)
-        .ease(()=>'linear')
+        .ease(d3.easeLinear)
         .call(@leftAxis())
 
     if @hasAxis('right')
       @svg.selectAll('.y.axisRight').transition()
         .duration(500)
-        .ease(()=>'linear')
+        .ease(d3.easeLinear)
         .call(@rightAxis())
 
   # Performs the animation for transitioning elements in the visualization.
