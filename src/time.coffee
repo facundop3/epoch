@@ -360,15 +360,15 @@ class Epoch.Time.Plot extends Epoch.Chart.Canvas
   # Transitions the left and right axes when the range of the plot has changed.
   _transitionRangeAxes: ->
     if @hasAxis('left')
-      @svg.selectAll('.y.axis.left').transition()
+      @svg.selectAll('.y.axisLeft').transition()
         .duration(500)
-        .ease('linear')
+        .ease(()=>'linear')
         .call(@leftAxis())
 
     if @hasAxis('right')
-      @svg.selectAll('.y.axis.right').transition()
+      @svg.selectAll('.y.axisRight').transition()
         .duration(500)
-        .ease('linear')
+        .ease(()=>'linear')
         .call(@rightAxis())
 
   # Performs the animation for transitioning elements in the visualization.
