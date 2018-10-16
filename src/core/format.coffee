@@ -9,7 +9,7 @@ Epoch.Formats.percent = (d) -> (d*100).toFixed(1) + "%"
 
 # Tick formatter for seconds from timestamp data.
 Epoch.Formats.seconds = (t) -> d3Seconds(new Date(t*1000))
-d3Seconds = d3.time.format('%I:%M:%S %p')
+d3Seconds = d3.timeFormat('%I:%M:%S %p')
 
 # Tick formatter for bytes
 Epoch.Formats.bytes = (d) -> Epoch.Util.formatBytes(d)

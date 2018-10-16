@@ -426,7 +426,7 @@ Epoch.Formats.seconds = function(t) {
   return d3Seconds(new Date(t * 1000));
 };
 
-d3Seconds = d3.time.format('%I:%M:%S %p');
+d3Seconds = d3.timeFormat('%I:%M:%S %p');
 
 Epoch.Formats.bytes = function(d) {
   return Epoch.Util.formatBytes(d);
@@ -1605,31 +1605,31 @@ Epoch.Chart.Plot = (function(superClass) {
     domain = (ref = this.options.domain) != null ? ref : this.extent(function(d) {
       return d.x;
     });
-    return d3.scale.linear().domain(domain).range([0, this.innerWidth()]);
+    return d3.scaleLinear().domain(domain).range([0, this.innerWidth()]);
   };
 
   Plot.prototype.y = function(givenDomain) {
-    return d3.scale.linear().domain(this._getScaleDomain(givenDomain)).range([this.innerHeight(), 0]);
+    return d3.scaleLinear().domain(this._getScaleDomain(givenDomain)).range([this.innerHeight(), 0]);
   };
 
   Plot.prototype.bottomAxis = function() {
-    return d3.svg.axis().scale(this.x()).orient('bottom').ticks(this.options.ticks.bottom).tickFormat(this.options.tickFormats.bottom);
+    return d3.axisBottom(this.x()).ticks(this.options.ticks.bottom).tickFormat(this.options.tickFormats.bottom);
   };
 
   Plot.prototype.topAxis = function() {
-    return d3.svg.axis().scale(this.x()).orient('top').ticks(this.options.ticks.top).tickFormat(this.options.tickFormats.top);
+    return d3.axisTop(this.x()).ticks(this.options.ticks.top).tickFormat(this.options.tickFormats.top);
   };
 
   Plot.prototype.leftAxis = function() {
     var range;
     range = this.options.range ? this.options.range.left : null;
-    return d3.svg.axis().scale(this.y(range)).orient('left').ticks(this.options.ticks.left).tickFormat(this.options.tickFormats.left);
+    return d3.axisLeft(this.y(range)).ticks(this.options.ticks.left).tickFormat(this.options.tickFormats.left);
   };
 
   Plot.prototype.rightAxis = function() {
     var range;
     range = this.options.range ? this.options.range.right : null;
-    return d3.svg.axis().scale(this.y(range)).orient('right').ticks(this.options.ticks.right).tickFormat(this.options.tickFormats.right);
+    return d3.axisRight(this.y(range)).ticks(this.options.ticks.right).tickFormat(this.options.tickFormats.right);
   };
 
   Plot.prototype.draw = function() {
@@ -1772,7 +1772,7 @@ Epoch.Chart.Area = (function(superClass) {
         }
       }
     }
-    return d3.scale.linear().domain((ref2 = this.options.range) != null ? ref2 : [0, d3.max(a)]).range([this.height - this.margins.top - this.margins.bottom, 0]);
+    return d3.scaleLinear().domain((ref2 = this.options.range) != null ? ref2 : [0, d3.max(a)]).range([this.height - this.margins.top - this.margins.bottom, 0]);
   };
 
   Area.prototype.draw = function() {
@@ -1884,7 +1884,7 @@ Epoch.Chart.Bar = (function(superClass) {
         return d.y;
       });
       extent[0] = Math.min(0, extent[0]);
-      return d3.scale.linear().domain(extent).range([0, this.width - this.margins.left - this.margins.right]);
+      return d3.scaleLinear().domain(extent).range([0, this.width - this.margins.left - this.margins.right]);
     }
   };
 
@@ -1909,7 +1909,7 @@ Epoch.Chart.Bar = (function(superClass) {
         return d.y;
       });
       extent[0] = Math.min(0, extent[0]);
-      return d3.scale.linear().domain(extent).range([this.height - this.margins.top - this.margins.bottom, 0]);
+      return d3.scaleLinear().domain(extent).range([this.height - this.margins.top - this.margins.bottom, 0]);
     } else {
       return d3.scale.ordinal().domain(Epoch.Util.domain(this.getVisibleLayers())).rangeRoundBands([0, this.innerHeight()], this.options.padding.group, this.options.outerPadding.group);
     }
@@ -2074,7 +2074,7 @@ Epoch.Chart.Bar = (function(superClass) {
 
   Bar.prototype.bottomAxis = function() {
     var axis;
-    axis = d3.svg.axis().scale(this.x()).orient('bottom').ticks(this.options.ticks.bottom).tickFormat(this.options.tickFormats.bottom);
+    axis = d3.axisBottom(this.x()).ticks(this.options.ticks.bottom).tickFormat(this.options.tickFormats.bottom);
     if (this._isVertical() && (this.options.ticks.bottom != null)) {
       axis.tickValues(this._getTickValues(this.options.ticks.bottom));
     }
@@ -2083,7 +2083,7 @@ Epoch.Chart.Bar = (function(superClass) {
 
   Bar.prototype.topAxis = function() {
     var axis;
-    axis = d3.svg.axis().scale(this.x()).orient('top').ticks(this.options.ticks.top).tickFormat(this.options.tickFormats.top);
+    axis = d3.axisTop(this.x())('top').ticks(this.options.ticks.top).tickFormat(this.options.tickFormats.top);
     if (this._isVertical() && (this.options.ticks.top != null)) {
       axis.tickValues(this._getTickValues(this.options.ticks.top));
     }
@@ -2092,7 +2092,7 @@ Epoch.Chart.Bar = (function(superClass) {
 
   Bar.prototype.leftAxis = function() {
     var axis;
-    axis = d3.svg.axis().scale(this.y()).orient('left').ticks(this.options.ticks.left).tickFormat(this.options.tickFormats.left);
+    axis = d3.axisLeft(this.y()).ticks(this.options.ticks.left).tickFormat(this.options.tickFormats.left);
     if (this._isHorizontal() && (this.options.ticks.left != null)) {
       axis.tickValues(this._getTickValues(this.options.ticks.left));
     }
@@ -2101,7 +2101,7 @@ Epoch.Chart.Bar = (function(superClass) {
 
   Bar.prototype.rightAxis = function() {
     var axis;
-    axis = d3.svg.axis().scale(this.y()).orient('right').ticks(this.options.ticks.right).tickFormat(this.options.tickFormats.right);
+    axis = d3.axisRight(this.y()).ticks(this.options.ticks.right).tickFormat(this.options.tickFormats.right);
     if (this._isHorizontal() && (this.options.ticks.right != null)) {
       axis.tickValues(this._getTickValues(this.options.ticks.right));
     }
@@ -2630,7 +2630,7 @@ Epoch.Time.Plot = (function(superClass) {
   Plot.prototype.leftAxis = function() {
     var axis, ticks;
     ticks = this.options.ticks.left;
-    axis = d3.svg.axis().scale(this.ySvgLeft()).orient('left').tickFormat(this.options.tickFormats.left);
+    axis = d3.axisLeft(this.ySvgLeft()).tickFormat(this.options.tickFormats.left);
     if (ticks === 2) {
       return axis.tickValues(this.extent(function(d) {
         return d.y;
@@ -2646,7 +2646,7 @@ Epoch.Time.Plot = (function(superClass) {
       return d.y;
     });
     ticks = this.options.ticks.right;
-    axis = d3.svg.axis().scale(this.ySvgRight()).orient('right').tickFormat(this.options.tickFormats.right);
+    axis = d3.axisRight(this.ySvgRight()).tickFormat(this.options.tickFormats.right);
     if (ticks === 2) {
       return axis.tickValues(this.extent(function(d) {
         return d.y;
@@ -2780,11 +2780,11 @@ Epoch.Time.Plot = (function(superClass) {
   };
 
   Plot.prototype.y = function(givenDomain) {
-    return d3.scale.linear().domain(this._getScaleDomain(givenDomain)).range([this.innerHeight(), 0]);
+    return d3.scaleLinear().domain(this._getScaleDomain(givenDomain)).range([this.innerHeight(), 0]);
   };
 
   Plot.prototype.ySvg = function(givenDomain) {
-    return d3.scale.linear().domain(this._getScaleDomain(givenDomain)).range([this.innerHeight() / this.pixelRatio, 0]);
+    return d3.scaleLinear().domain(this._getScaleDomain(givenDomain)).range([this.innerHeight() / this.pixelRatio, 0]);
   };
 
   Plot.prototype.ySvgLeft = function() {
@@ -3383,7 +3383,7 @@ Epoch.Time.Gauge = (function(superClass) {
     ref = [this.centerX(), this.centerY(), this.radius()], cx = ref[0], cy = ref[1], r = ref[2];
     ref1 = [this.options.tickOffset, this.options.tickSize], tickOffset = ref1[0], tickSize = ref1[1];
     this.clear();
-    t = d3.scale.linear().domain([0, this.options.ticks]).range([-(9 / 8) * Math.PI, Math.PI / 8]);
+    t = d3.scaleLinear().domain([0, this.options.ticks]).range([-(9 / 8) * Math.PI, Math.PI / 8]);
     this.setStyles('.epoch .gauge .tick');
     this.ctx.beginPath();
     for (i = j = 0, ref2 = this.options.ticks; 0 <= ref2 ? j <= ref2 : j >= ref2; i = 0 <= ref2 ? ++j : --j) {
@@ -3577,11 +3577,11 @@ Epoch.Time.Heatmap = (function(superClass) {
   };
 
   Heatmap.prototype.y = function() {
-    return d3.scale.linear().domain(this.options.bucketRange).range([this.innerHeight(), 0]);
+    return d3.scaleLinear().domain(this.options.bucketRange).range([this.innerHeight(), 0]);
   };
 
   Heatmap.prototype.ySvg = function() {
-    return d3.scale.linear().domain(this.options.bucketRange).range([this.innerHeight() / this.pixelRatio, 0]);
+    return d3.scaleLinear().domain(this.options.bucketRange).range([this.innerHeight() / this.pixelRatio, 0]);
   };
 
   Heatmap.prototype.h = function() {

@@ -221,7 +221,7 @@ class Epoch.Time.Plot extends Epoch.Chart.Canvas
   # @return [Object] The d3 left axis.
   leftAxis: ->
     ticks = @options.ticks.left
-    axis = d3.svg.axis().scale(@ySvgLeft()).orient('left')
+    axis = d3.axisLeft(@ySvgLeft())
       .tickFormat(@options.tickFormats.left)
     if ticks == 2
       axis.tickValues @extent((d) -> d.y)
@@ -232,7 +232,7 @@ class Epoch.Time.Plot extends Epoch.Chart.Canvas
   rightAxis: ->
     extent = @extent((d) -> d.y)
     ticks = @options.ticks.right
-    axis = d3.svg.axis().scale(@ySvgRight()).orient('right')
+    axis = d3.axisRight(@ySvgRight())
       .tickFormat(@options.tickFormats.right)
     if ticks == 2
       axis.tickValues @extent((d) -> d.y)
@@ -381,14 +381,14 @@ class Epoch.Time.Plot extends Epoch.Chart.Canvas
   # @param [Array] givenDomain A given domain for the scale
   # @return [Function] The y scale for the plot
   y: (givenDomain) ->
-    d3.scale.linear()
+    d3.scaleLinear()
       .domain(@_getScaleDomain(givenDomain))
       .range([@innerHeight(), 0])
 
   # @param [Array] givenDomain Optional domain to override default
   # @return [Function] The y scale for the svg portions of the plot
   ySvg: (givenDomain) ->
-    d3.scale.linear()
+    d3.scaleLinear()
       .domain(@_getScaleDomain(givenDomain))
       .range([@innerHeight() / @pixelRatio, 0])
 

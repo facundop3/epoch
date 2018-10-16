@@ -94,13 +94,13 @@ class Epoch.Time.Heatmap extends Epoch.Time.Plot
 
   # @return [Function] The y scale for the heatmap.
   y: ->
-    d3.scale.linear()
+    d3.scaleLinear()
       .domain(@options.bucketRange)
       .range([@innerHeight(), 0])
 
   # @return [Function] The y scale for the svg portions of the heatmap.
   ySvg: ->
-    d3.scale.linear()
+    d3.scaleLinear()
       .domain(@options.bucketRange)
       .range([@innerHeight() / @pixelRatio, 0])
 

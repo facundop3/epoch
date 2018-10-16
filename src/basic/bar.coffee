@@ -55,7 +55,7 @@ class Epoch.Chart.Bar extends Epoch.Chart.Plot
     else
       extent = @extent((d) -> d.y)
       extent[0] = Math.min(0, extent[0])
-      d3.scale.linear()
+      d3.scaleLinear()
         .domain(extent)
         .range([0, @width - @margins.left - @margins.right])
 
@@ -70,7 +70,7 @@ class Epoch.Chart.Bar extends Epoch.Chart.Plot
     if @_isVertical()
       extent = @extent((d) -> d.y)
       extent[0] = Math.min(0, extent[0])
-      d3.scale.linear()
+      d3.scaleLinear()
         .domain(extent)
         .range([@height - @margins.top - @margins.bottom, 0])
     else
@@ -221,7 +221,7 @@ class Epoch.Chart.Bar extends Epoch.Chart.Plot
 
   # @return [Function] d3 axis to use for the bottom of the visualization.
   bottomAxis: ->
-    axis = d3.svg.axis().scale(@x()).orient('bottom')
+    axis = d3.axisBottom(@x())
       .ticks(@options.ticks.bottom)
       .tickFormat(@options.tickFormats.bottom)
     if @_isVertical() and @options.ticks.bottom?
@@ -230,7 +230,7 @@ class Epoch.Chart.Bar extends Epoch.Chart.Plot
 
   # @return [Function] d3 axis to use for the top of the visualization.
   topAxis: ->
-    axis = d3.svg.axis().scale(@x()).orient('top')
+    axis = d3.axisTop(@x())('top')
       .ticks(@options.ticks.top)
       .tickFormat(@options.tickFormats.top)
     if @_isVertical() and @options.ticks.top?
@@ -239,7 +239,7 @@ class Epoch.Chart.Bar extends Epoch.Chart.Plot
 
   # @return [Function] d3 axis to use on the left of the visualization.
   leftAxis: ->
-    axis = d3.svg.axis().scale(@y()).orient('left')
+    axis = d3.axisLeft(@y())
       .ticks(@options.ticks.left)
       .tickFormat(@options.tickFormats.left)
     if @_isHorizontal() and @options.ticks.left?
@@ -248,7 +248,7 @@ class Epoch.Chart.Bar extends Epoch.Chart.Plot
 
   # @return [Function] d3 axis to use on the right of the visualization.
   rightAxis: ->
-    axis = d3.svg.axis().scale(@y()).orient('right')
+    axis = d3.axisRight(@y())
       .ticks(@options.ticks.right)
       .tickFormat(@options.tickFormats.right)
     if @_isHorizontal() and @options.ticks.right?

@@ -97,39 +97,39 @@ class Epoch.Chart.Plot extends Epoch.Chart.SVG
   # @return [Function] The x scale for the visualization.
   x: ->
     domain = @options.domain ? @extent((d) -> d.x)
-    d3.scale.linear()
+    d3.scaleLinear()
       .domain(domain)
       .range([0, @innerWidth()])
 
   # @return [Function] The y scale for the visualization.
   y: (givenDomain) ->
-    d3.scale.linear()
+    d3.scaleLinear()
       .domain(@_getScaleDomain(givenDomain))
       .range([@innerHeight(), 0])
 
   # @return [Function] d3 axis to use for the bottom of the visualization.
   bottomAxis: ->
-    d3.svg.axis().scale(@x()).orient('bottom')
+    d3.axisBottom((@x()))
       .ticks(@options.ticks.bottom)
       .tickFormat(@options.tickFormats.bottom)
 
   # @return [Function] d3 axis to use for the top of the visualization.
   topAxis: ->
-    d3.svg.axis().scale(@x()).orient('top')
+    d3.axisTop(@x())
       .ticks(@options.ticks.top)
       .tickFormat(@options.tickFormats.top)
 
   # @return [Function] d3 axis to use on the left of the visualization.
   leftAxis: ->
     range = if @options.range then @options.range.left else null
-    d3.svg.axis().scale(@y(range)).orient('left')
+    d3.axisLeft(@y(range))
       .ticks(@options.ticks.left)
       .tickFormat(@options.tickFormats.left)
 
   # @return [Function] d3 axis to use on the right of the visualization.
   rightAxis: ->
     range = if @options.range then @options.range.right else null
-    d3.svg.axis().scale(@y(range)).orient('right')
+    d3.axisRight(@y(range))
       .ticks(@options.ticks.right)
       .tickFormat(@options.tickFormats.right)
 

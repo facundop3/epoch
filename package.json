@@ -23,7 +23,7 @@
   },
   "main": "dist/js/epoch.js",
   "dependencies": {
-    "d3": "^3.4.13"
+    "d3": "^5.7.0"
   },
   "devDependencies": {
     "chai": "^3.3.0",

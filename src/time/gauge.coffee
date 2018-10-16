@@ -129,7 +129,7 @@ class Epoch.Time.Gauge extends Epoch.Chart.Canvas
     @clear()
 
     # Draw Ticks
-    t = d3.scale.linear()
+    t = d3.scaleLinear()
       .domain([0, @options.ticks])
       .range([ -(9/8)*Math.PI, Math.PI/8 ])
 

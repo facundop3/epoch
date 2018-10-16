@@ -14,7 +14,7 @@ class Epoch.Chart.Area extends Epoch.Chart.Plot
       for own k, v of layer.values
         a[k] += v.y if a[k]?
         a[k] = v.y unless a[k]?
-    d3.scale.linear()
+    d3.scaleLinear()
       .domain(@options.range ? [0, d3.max(a)])
       .range([@height - @margins.top - @margins.bottom, 0])
 
