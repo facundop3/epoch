@@ -321,15 +321,15 @@ class Epoch.Chart.Canvas extends Epoch.Chart.Base
       @pixelRatio = window.devicePixelRatio
     else
       @pixelRatio = 1
+    # @canvasHTML Added to manage styles and attributes, it was not working properly with the d3.select object
+    @canvasHTML = document.createElement('CANVAS')
+    @canvasHTML.style.width = "#{@width}px"
+    @canvasHTML.style.height = "#{@height}px"
 
-    @canvas = d3.select( document.createElement('CANVAS') )
-    @canvas.style
-      'width': "#{@width}px"
-      'height': "#{@height}px"
+    @canvasHTML.setAttribute('width', @getWidth())
+    @canvasHTML.setAttribute('height', @getHeight())
 
-    @canvas.attr
-      width: @getWidth()
-      height: @getHeight()
+    @canvas = d3.select(@canvasHTML)
 
     @el.node().appendChild @canvas.node() if @el?
     @ctx = Epoch.Util.getContext @canvas.node()
@@ -352,8 +352,11 @@ class Epoch.Chart.Canvas extends Epoch.Chart.Base
   # Resizes the canvas element when the dimensions of the container change
   dimensionsChanged: ->
     super()
-    @canvas.style {'width': "#{@width}px", 'height': "#{@height}px"}
-    @canvas.attr { width: @getWidth(), height: @getHeight() }
+    @canvasHTML.style.width = "#{@width}px"
+    @canvasHTML.style.height = "#{@height}px"
+    @canvasHTML.setAttribute('width', @getWidth())
+    @canvasHTML.setAttribute('height', @getHeight())
+    @canvas = d3.select(@canvasHTML)
 
   # Purges QueryCSS cache and redraws the Canvas based chart.
   redraw: ->

@@ -104,7 +104,9 @@ class Epoch.Time.Plot extends Epoch.Chart.Canvas
     if @el.style('position') != 'absolute' and @el.style('position') != 'relative'
       @el.style('position', 'relative')
 
-    @canvas.style { position: 'absolute', 'z-index': '999' }
+    @canvasHTML.style.position = 'absolute'
+    @canvasHTML.style.zIndex = '999'
+    @canvas = d3.select(@canvasHTML)
     @_sizeCanvas()
 
     # Animation / Transitions
@@ -127,15 +129,13 @@ class Epoch.Time.Plot extends Epoch.Chart.Canvas
 
   # Positions and sizes the canvas based on margins and axes.
   _sizeCanvas: ->
-    @canvas.attr
-      width: @innerWidth()
-      height: @innerHeight()
-
-    @canvas.style
-      width: "#{@innerWidth() / @pixelRatio}px"
-      height: "#{@innerHeight() / @pixelRatio}px"
-      top: "#{@margins.top}px"
-      left: "#{@margins.left}px"
+    @canvasHTML.setAttribute('width', @innerWidth())
+    @canvasHTML.setAttribute('height', @innerHeight())
+    @canvasHTML.style.width = "#{@innerWidth() / @pixelRatio}px"
+    @canvasHTML.style.height = "#{@innerHeight() / @pixelRatio}px"
+    @canvasHTML.style.top = "#{@margins.top}px"
+    @canvasHTML.style.left = "#{@margins.left}px"
+    @canvas = d3.select(@canvasHTML)
 
   # Removes any axes found in the SVG and adds both the time and range axes to the plot.
   _buildAxes: ->

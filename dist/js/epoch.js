@@ -795,15 +795,13 @@ Epoch.Chart.Canvas = (function(superClass) {
     } else {
       this.pixelRatio = 1;
     }
-    this.canvas = d3.select(document.createElement('CANVAS'));
-    this.canvas.style({
-      'width': this.width + "px",
-      'height': this.height + "px"
-    });
-    this.canvas.attr({
-      width: this.getWidth(),
-      height: this.getHeight()
-    });
+    this.canvasHTML = document.createElement('CANVAS');
+    debugger;
+    this.canvasHTML.style.width = this.width + "px";
+    this.canvasHTML.style.height = this.height + "px";
+    this.canvasHTML.setAttribute('width', this.getWidth());
+    this.canvasHTML.setAttribute('height', this.getHeight());
+    this.canvas = d3.select(this.canvasHTML);
     if (this.el != null) {
       this.el.node().appendChild(this.canvas.node());
     }
@@ -828,14 +826,11 @@ Epoch.Chart.Canvas = (function(superClass) {
 
   Canvas.prototype.dimensionsChanged = function() {
     Canvas.__super__.dimensionsChanged.call(this);
-    this.canvas.style({
-      'width': this.width + "px",
-      'height': this.height + "px"
-    });
-    return this.canvas.attr({
-      width: this.getWidth(),
-      height: this.getHeight()
-    });
+    this.canvasHTML.style.width = this.width + "px";
+    this.canvasHTML.style.height = this.height + "px";
+    this.canvasHTML.setAttribute('width', this.getWidth());
+    this.canvasHTML.setAttribute('height', this.getHeight());
+    return this.canvas = d3.select(this.canvasHTML);
   };
 
   Canvas.prototype.redraw = function() {
@@ -2502,10 +2497,9 @@ Epoch.Time.Plot = (function(superClass) {
     if (this.el.style('position') !== 'absolute' && this.el.style('position') !== 'relative') {
       this.el.style('position', 'relative');
     }
-    this.canvas.style({
-      position: 'absolute',
-      'z-index': '999'
-    });
+    this.canvasHTML.style.position = 'absolute';
+    this.canvasHTML.style.zIndex = '999';
+    this.canvas = d3.select(this.canvasHTML);
     this._sizeCanvas();
     this.animation = {
       interval: null,
@@ -2533,16 +2527,13 @@ Epoch.Time.Plot = (function(superClass) {
   }
 
   Plot.prototype._sizeCanvas = function() {
-    this.canvas.attr({
-      width: this.innerWidth(),
-      height: this.innerHeight()
-    });
-    return this.canvas.style({
-      width: (this.innerWidth() / this.pixelRatio) + "px",
-      height: (this.innerHeight() / this.pixelRatio) + "px",
-      top: this.margins.top + "px",
-      left: this.margins.left + "px"
-    });
+    this.canvasHTML.setAttribute('width', this.innerWidth());
+    this.canvasHTML.setAttribute('height', this.innerHeight());
+    this.canvasHTML.style.width = (this.innerWidth() / this.pixelRatio) + "px";
+    this.canvasHTML.style.height = (this.innerHeight() / this.pixelRatio) + "px";
+    this.canvasHTML.style.top = this.margins.top + "px";
+    this.canvasHTML.style.left = this.margins.left + "px";
+    return this.canvas = d3.select(this.canvasHTML);
   };
 
   Plot.prototype._buildAxes = function() {
